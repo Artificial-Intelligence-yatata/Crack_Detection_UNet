@@ -86,8 +86,8 @@ class Project():
       
 
 
-
-      self.model.debugMode = self.debugMode
+      self.model.setup(debugMode = self.debugMode, problem = self.problem,
+                       problem_type = self.problem_type)
       self.model.build()
 
 

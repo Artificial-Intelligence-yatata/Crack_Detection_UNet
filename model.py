@@ -125,12 +125,33 @@ class Model (torch.nn.Module):
         self.trained = False
         
         
-        self.problem = "segmentation"
-        self.problem_type = "supervised"
+        
 
         self.debug_mode = debug_mode
+
+
+    def setup(self, debugMode, problem, problem_type):
+
+        self.problem = problem
+        self.problem_type = problem_type
+
+
+        if (self.problem == "segmentation"):
+          # define trainable parameters
+          self.weight = torch.nn.Parameter(torch.Tensor(self.channels_input, self.channel_output))
+          self.bias = torch.nn.Parameter(torch.Tensor(self.channel_output,))
+        
+        self.reset_parameters()
+
+    def reset_parameters(self):
+        nn.init.kaiming_uniform_(self.weight, a=math.sqrt(5))
+        if self.bias is not None:
+            fan_in, _ = nn.init._calculate_fan_in_and_fan_out(self.weight)
+            bound = 1 / math.sqrt(fan_in)
+            nn.init.uniform_(self.bias, -bound, bound)
                 
     def build(self):
+
       if(self.debug_mode == True):
           print("Building Model")
 
