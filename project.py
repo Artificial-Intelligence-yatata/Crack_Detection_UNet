@@ -84,6 +84,13 @@ class Project():
                                     test_factor = test_factor, 
                                     batch_size = 32, shuffle = True, drop_last = False, seed = seed)
       
+
+
+
+      self.model.debugMode = self.debugMode
+      self.model.build()
+
+
       if(self.debugMode == True):
         print("Setup Complete")
 

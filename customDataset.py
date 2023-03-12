@@ -448,7 +448,7 @@ class customDataset(torch.utils.data.Dataset):
         
         if(self.debugMode == True):
             print("Dataset Train_Test Split Initialization")
-            print("Test Factor: ".format(test_factor))
+            print("Test Factor: {0}".format(test_factor))
 
         self.test_factor = test_factor
         

@@ -109,7 +109,8 @@ class DoubleConvolutionBlock (torch.nn.Module):
 
 class Model (torch.nn.Module):
 
-    def __init__(self, title = "model", model = "UNet", channels_input = 3, channel_output = 3, img_size = (255, 255)) -> None:
+    def __init__(self, title = "model", model = "UNet", channels_input = 3, channel_output = 3,
+                 img_size = (255, 255), debug_mode = False) -> None:
         
 
         self.title = "model"
@@ -126,14 +127,23 @@ class Model (torch.nn.Module):
         
         self.problem = "segmentation"
         self.problem_type = "supervised"
+
+        self.debug_mode = debug_mode
                 
     def build(self):
+      if(self.debug_mode == True):
+          print("Building Model")
 
       if(self.model == "UNet"):
         self.build_UNet()
+      
+      if(self.debug_mode == True):
+          print("Building Model Complete")
 
     def build_UNet(self):
 
+        if(self.debug_mode == True):
+          print("Building U-Net")
         
         # Encoder Chain
         # The contracting path follows the typical architecture of a convolutional network.
@@ -164,6 +174,9 @@ class Model (torch.nn.Module):
     
 
         self.built = True
+
+        if(self.debug_mode == True):
+          print("Building U-Net Complete")
 
     def forward (self, X):
 
