@@ -35,7 +35,7 @@ class Layer ():
 
 
 
-class DoubleConvolutionBlock ():
+class DoubleConvolutionBlock (torch.nn.Module):
 
     def __init__(self, channels_input, channels_output:int, mode, final_output = 1) -> None:
         super().__init__()
@@ -109,8 +109,11 @@ class DoubleConvolutionBlock ():
 
 class Model (torch.nn.Module):
 
-    def __init__(self, channels_input = 3, channel_output = 3, img_size = (255, 255)) -> None:
+    def __init__(self, title = "model", model = "UNet", channels_input = 3, channel_output = 3, img_size = (255, 255)) -> None:
         
+
+        self.title = "model"
+        self.model = "UNet"
 
         self.channels_input = channels_input
         self.channel_output = channel_output
@@ -124,8 +127,12 @@ class Model (torch.nn.Module):
         self.problem = "segmentation"
         self.problem_type = "supervised"
                 
-
     def build(self):
+
+      if(self.model == "UNet"):
+        self.build_UNet()
+
+    def build_UNet(self):
 
         
         # Encoder Chain

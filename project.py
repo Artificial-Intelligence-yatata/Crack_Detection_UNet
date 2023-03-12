@@ -84,7 +84,6 @@ class Project():
                                     test_factor = test_factor, 
                                     batch_size = 32, shuffle = True, drop_last = False, seed = seed)
       
-
       if(self.debugMode == True):
         print("Setup Complete")
 
@@ -98,6 +97,7 @@ class Project():
         
         if (self.problem_type == "supervised" and
             self.problem_type == "classification"):
+            
             # get the inputs; data is a list of [inputs, labels]
             inputs, labels = data
 

@@ -108,6 +108,13 @@ class customDataset(torch.utils.data.Dataset):
 
     def generate_dataset (self, data, data_type):
         
+
+        classes = []
+        image_paths = []
+        mask_paths = []
+
+
+
         if (self.debugMode == True):
           print("Dataset Generation Initialization")
 
@@ -181,15 +188,24 @@ class customDataset(torch.utils.data.Dataset):
                     # create dataframe from image and mask paths
                     data = {'X': image_paths, 'Y': mask_paths}
 
+                    if (self.debugMode == True):
+                        print("Classes: {0}".format(classes))
+                        print("Images Number: {0}".format(len(image_paths)))
+                        print("Masks Number: {0}".format(len(mask_paths)))
+
+
                     try:
                       dataset = pandas.DataFrame(data)
                     except:
-                      print("Erro Generating Dataset")
-                      if (self.debugMode == True):
-                        print("Classes: ".format(classes))
-                        print("Images Number: ".format(len(image_paths)))
-                        print("Masks Number: ".format(len(mask_paths)))
-                    
+                      print("Erro Generating Dataset")                 
+
+                    fig, axes = matplotlib.pyplot.subplots(1,1, figsize=(5,5))
+                    axes.bar(["X", "Y"], [dataset["X"].count(), dataset["Y"].count()])
+
+                    axes.set_title("Sample Number")
+                    axes.set_xlabel("X and Y Data")
+                    axes.set_ylabel("Sample Count")
+                    matplotlib.pyplot.show()
 
                 elif (self.problem == "mix"):
                     pass
@@ -222,7 +238,7 @@ class customDataset(torch.utils.data.Dataset):
         self.data_loaded = True
         
         if (self.debugMode == True):
-          print("Dataset Generation Complete")
+          print("D  Dataset Generation Complete")
 
 
     def __len__(self):
